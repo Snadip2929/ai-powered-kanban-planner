@@ -13,29 +13,29 @@ The application initially follows a Monolithic Backend Architecture with a layer
 ### 1.2 Architecture Diagram
 
 ```mermaid
+
 flowchart TD
     U[User]
     FE[React.js Frontend]
-    BE[Spring Boot Backend]
 
-    C[Controller Layer]
-    S[Service Layer]
-    R[Repository Layer]
+    subgraph BE[Spring Boot Backend]
+        C[Controller Layer]
+        S[Service Layer]
+        R[Repository Layer]
+    end
 
     DB[(MongoDB Database)]
     AI[Google Gemini API]
 
-    U --> FE
+    U <-->|Interaction| FE
     FE -->|REST API Requests| C
-    C --> S
-    S --> R
-    R <--> DB
-
+    C -->|Process Request| S
+    S -->|Database Operations| R
+    R <-->|Data Operations| DB
     S <-->|AI Request and Response| AI
-
-    S --> C
+    S -->|Response| C
     C -->|JSON Response| FE
-    FE --> U
+
 ```
 
 ### 1.3 Component Description
